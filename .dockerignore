@@ -1,0 +1,25 @@
+# Git
+.git
+.gitignore
+
+# Docs
+README.md
+*.md
+
+# .NET build artifacts
+**/bin/
+**/obj/
+
+# VS files
+.vs/
+*.user
+*.suo
+
+# Secrets
+.env
+appsettings.Production.json
+appsettings.Development.json
+
+# Docker
+docker-compose*.yml
+.dockerignore
