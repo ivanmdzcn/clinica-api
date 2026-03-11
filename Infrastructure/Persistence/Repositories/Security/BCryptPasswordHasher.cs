@@ -1,6 +1,6 @@
 ﻿using Application.Interfaces.Repositories.Security;
 
-namespace Infraestructure.Persistence.Repositories.Security;
+namespace Infrastructure.Persistence.Repositories.Security;
 
 public class BCryptPasswordHasher : IPasswordHasher
 {

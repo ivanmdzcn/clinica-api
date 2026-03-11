@@ -3,7 +3,7 @@ using Dapper;
 using Infrastructure.Persistence.Dapper;
 using Application.Interfaces.Repositories.Auth;
 
-namespace Infraestructure.Persistence.Repositories.Auth;
+namespace Infrastructure.Persistence.Repositories.Auth;
 
 public class UsuarioRepository : IUsuarioRepository
 {
