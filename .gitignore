@@ -10,6 +10,7 @@ obj/
 *.DotSettings.user
 *.Backup.tmp
 appsettings.Production.json
+appsettings.Development.json
 
 # Scripts SQL - solo son gu¡a
 Infrastructure/Persistence/Database/
