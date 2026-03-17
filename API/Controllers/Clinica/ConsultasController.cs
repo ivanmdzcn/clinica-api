@@ -39,7 +39,7 @@ public class ConsultasController : ControllerBase
     }
 
     [HttpPost]
-    [RequirePermission("Consultas.Ver")]
+    [RequirePermission("Consultas.Crear")]
     public async Task<ActionResult<CreateConsultaResponse>> Create([FromBody] CreateConsultaRequest request)
     {
         var response = await _createHandler.HandleAsync(request);

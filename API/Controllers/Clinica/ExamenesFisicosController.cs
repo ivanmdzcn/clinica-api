@@ -1,3 +1,4 @@
+using API.Attributes;
 using Application.UseCases.Clinica.ExamenesFisicos.CreateExamenFisico;
 using Application.UseCases.Clinica.ExamenesFisicos.UpdateExamenFisico;
 using Application.UseCases.Clinica.ExamenesFisicos.GetExamenFisico;
@@ -34,6 +35,7 @@ public class ExamenesFisicosController : ControllerBase
     }
 
     [HttpPost]
+    [RequirePermission("ExamenesFisicos.Crear")]
     public async Task<ActionResult<CreateExamenFisicoResponse>> Create([FromBody] CreateExamenFisicoRequest request)
     {
         var response = await _createHandler.HandleAsync(request);
@@ -41,6 +43,7 @@ public class ExamenesFisicosController : ControllerBase
     }
 
     [HttpPut("{id}")]
+    [RequirePermission("ExamenesFisicos.Editar")]
     public async Task<ActionResult<UpdateExamenFisicoResponse>> Update(int id, [FromBody] UpdateExamenFisicoRequest request)
     {
         var response = await _updateHandler.HandleAsync(id, request);
@@ -48,6 +51,7 @@ public class ExamenesFisicosController : ControllerBase
     }
 
     [HttpGet("{id}")]
+    [RequirePermission("ExamenesFisicos.Ver")]
     public async Task<ActionResult<GetExamenFisicoResponse>> GetById(int id)
     {
         var response = await _getHandler.HandleAsync(id);
@@ -55,15 +59,17 @@ public class ExamenesFisicosController : ControllerBase
     }
 
     [HttpGet("consulta/{consultaId}")]
+    [RequirePermission("ExamenesFisicos.Ver")]
     public async Task<ActionResult<GetExamenFisicoByConsultaResponse>> GetByConsulta(int consultaId)
     {
         var response = await _getByConsultaHandler.HandleAsync(consultaId);
         if (response == null)
-            return NotFound($"No se encontró examen físico para la consulta {consultaId}");
+            return NotFound($"No se encontrï¿½ examen fï¿½sico para la consulta {consultaId}");
         return Ok(response);
     }
 
     [HttpDelete("{id}")]
+    [RequirePermission("ExamenesFisicos.Eliminar")]
     public async Task<IActionResult> Delete(int id)
     {
         await _deleteHandler.HandleAsync(id);

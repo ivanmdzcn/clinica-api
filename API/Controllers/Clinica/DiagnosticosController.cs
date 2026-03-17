@@ -1,3 +1,4 @@
+using API.Attributes;
 using Application.UseCases.Clinica.Diagnosticos.CreateDiagnostico;
 using Application.UseCases.Clinica.Diagnosticos.UpdateDiagnostico;
 using Application.UseCases.Clinica.Diagnosticos.GetDiagnostico;
@@ -34,6 +35,7 @@ public class DiagnosticosController : ControllerBase
     }
 
     [HttpPost]
+    [RequirePermission("Diagnosticos.Crear")]
     public async Task<ActionResult<CreateDiagnosticoResponse>> Create([FromBody] CreateDiagnosticoRequest request)
     {
         var response = await _createHandler.HandleAsync(request);
@@ -41,6 +43,7 @@ public class DiagnosticosController : ControllerBase
     }
 
     [HttpPut("{id}")]
+    [RequirePermission("Diagnosticos.Editar")]
     public async Task<ActionResult<UpdateDiagnosticoResponse>> Update(int id, [FromBody] UpdateDiagnosticoRequest request)
     {
         var response = await _updateHandler.HandleAsync(id, request);
@@ -48,6 +51,7 @@ public class DiagnosticosController : ControllerBase
     }
 
     [HttpGet("{id}")]
+    [RequirePermission("Diagnosticos.Ver")]
     public async Task<ActionResult<GetDiagnosticoResponse>> GetById(int id)
     {
         var response = await _getHandler.HandleAsync(id);
@@ -55,6 +59,7 @@ public class DiagnosticosController : ControllerBase
     }
 
     [HttpGet("consulta/{consultaId}")]
+    [RequirePermission("Diagnosticos.Ver")]
     public async Task<ActionResult<IEnumerable<ListDiagnosticosByConsultaResponse>>> GetByConsulta(int consultaId)
     {
         var response = await _listByConsultaHandler.HandleAsync(consultaId);
@@ -62,6 +67,7 @@ public class DiagnosticosController : ControllerBase
     }
 
     [HttpDelete("{id}")]
+    [RequirePermission("Diagnosticos.Eliminar")]
     public async Task<IActionResult> Delete(int id)
     {
         await _deleteHandler.HandleAsync(id);

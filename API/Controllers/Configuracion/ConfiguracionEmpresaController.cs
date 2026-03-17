@@ -1,3 +1,4 @@
+using API.Attributes;
 using Application.UseCases.Configuracion.ConfiguracionEmpresa.CreateConfiguracionEmpresa;
 using Application.UseCases.Configuracion.ConfiguracionEmpresa.UpdateConfiguracionEmpresa;
 using Application.UseCases.Configuracion.ConfiguracionEmpresa.GetConfiguracionEmpresa;
@@ -26,6 +27,7 @@ public class ConfiguracionEmpresaController : ControllerBase
     }
 
     [HttpPost]
+    [RequirePermission("Configuracion.Editar")]
     public async Task<ActionResult<CreateConfiguracionEmpresaResponse>> Create([FromBody] CreateConfiguracionEmpresaRequest request)
     {
         var response = await _createHandler.HandleAsync(request);
@@ -33,6 +35,7 @@ public class ConfiguracionEmpresaController : ControllerBase
     }
 
     [HttpPut]
+    [RequirePermission("Configuracion.Editar")]
     public async Task<IActionResult> Update([FromBody] UpdateConfiguracionEmpresaRequest request)
     {
         await _updateHandler.HandleAsync(request);
@@ -40,7 +43,7 @@ public class ConfiguracionEmpresaController : ControllerBase
     }
 
     [HttpGet]
-    [AllowAnonymous] // Permitir acceso público para logo, nombre, etc.
+    [AllowAnonymous] // Permitir acceso publico para logo, nombre, etc.
     public async Task<ActionResult<GetConfiguracionEmpresaResponse>> Get()
     {
         var response = await _getHandler.HandleAsync();

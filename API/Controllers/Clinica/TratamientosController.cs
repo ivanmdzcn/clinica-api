@@ -1,3 +1,4 @@
+using API.Attributes;
 using Application.UseCases.Clinica.Tratamientos.CreateTratamiento;
 using Application.UseCases.Clinica.Tratamientos.UpdateTratamiento;
 using Application.UseCases.Clinica.Tratamientos.GetTratamiento;
@@ -34,6 +35,7 @@ public class TratamientosController : ControllerBase
     }
 
     [HttpPost]
+    [RequirePermission("Tratamientos.Crear")]
     public async Task<ActionResult<CreateTratamientoResponse>> Create([FromBody] CreateTratamientoRequest request)
     {
         var response = await _createHandler.HandleAsync(request);
@@ -41,6 +43,7 @@ public class TratamientosController : ControllerBase
     }
 
     [HttpPut("{id}")]
+    [RequirePermission("Tratamientos.Editar")]
     public async Task<ActionResult<UpdateTratamientoResponse>> Update(int id, [FromBody] UpdateTratamientoRequest request)
     {
         var response = await _updateHandler.HandleAsync(id, request);
@@ -48,6 +51,7 @@ public class TratamientosController : ControllerBase
     }
 
     [HttpGet("{id}")]
+    [RequirePermission("Tratamientos.Ver")]
     public async Task<ActionResult<GetTratamientoResponse>> GetById(int id)
     {
         var response = await _getHandler.HandleAsync(id);
@@ -55,6 +59,7 @@ public class TratamientosController : ControllerBase
     }
 
     [HttpGet("consulta/{consultaId}")]
+    [RequirePermission("Tratamientos.Ver")]
     public async Task<ActionResult<IEnumerable<ListTratamientosByConsultaResponse>>> GetByConsulta(int consultaId)
     {
         var response = await _listByConsultaHandler.HandleAsync(consultaId);
@@ -62,6 +67,7 @@ public class TratamientosController : ControllerBase
     }
 
     [HttpDelete("{id}")]
+    [RequirePermission("Tratamientos.Eliminar")]
     public async Task<IActionResult> Delete(int id)
     {
         await _deleteHandler.HandleAsync(id);

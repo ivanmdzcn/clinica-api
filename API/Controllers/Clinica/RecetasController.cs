@@ -1,3 +1,4 @@
+using API.Attributes;
 using Application.UseCases.Clinica.Recetas.CreateReceta;
 using Application.UseCases.Clinica.Recetas.UpdateReceta;
 using Application.UseCases.Clinica.Recetas.GetReceta;
@@ -34,6 +35,7 @@ public class RecetasController : ControllerBase
     }
 
     [HttpPost]
+    [RequirePermission("Recetas.Crear")]
     public async Task<ActionResult<CreateRecetaResponse>> Create([FromBody] CreateRecetaRequest request)
     {
         var response = await _createHandler.HandleAsync(request);
@@ -41,6 +43,7 @@ public class RecetasController : ControllerBase
     }
 
     [HttpPut("{id}")]
+    [RequirePermission("Recetas.Editar")]
     public async Task<ActionResult<UpdateRecetaResponse>> Update(int id, [FromBody] UpdateRecetaRequest request)
     {
         var response = await _updateHandler.HandleAsync(id, request);
@@ -48,6 +51,7 @@ public class RecetasController : ControllerBase
     }
 
     [HttpGet("{id}")]
+    [RequirePermission("Recetas.Ver")]
     public async Task<ActionResult<GetRecetaResponse>> GetById(int id)
     {
         var response = await _getHandler.HandleAsync(id);
@@ -55,6 +59,7 @@ public class RecetasController : ControllerBase
     }
 
     [HttpGet("consulta/{consultaId}")]
+    [RequirePermission("Recetas.Ver")]
     public async Task<ActionResult<IEnumerable<ListRecetasByConsultaResponse>>> GetByConsulta(int consultaId)
     {
         var response = await _listByConsultaHandler.HandleAsync(consultaId);
@@ -62,6 +67,7 @@ public class RecetasController : ControllerBase
     }
 
     [HttpDelete("{id}")]
+    [RequirePermission("Recetas.Eliminar")]
     public async Task<IActionResult> Delete(int id)
     {
         await _deleteHandler.HandleAsync(id);

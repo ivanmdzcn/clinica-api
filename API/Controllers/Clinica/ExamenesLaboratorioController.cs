@@ -1,3 +1,4 @@
+using API.Attributes;
 using Application.UseCases.Clinica.ExamenesLaboratorio.CreateExamenLaboratorio;
 using Application.UseCases.Clinica.ExamenesLaboratorio.UpdateExamenLaboratorio;
 using Application.UseCases.Clinica.ExamenesLaboratorio.GetExamenLaboratorio;
@@ -34,6 +35,7 @@ public class ExamenesLaboratorioController : ControllerBase
     }
 
     [HttpPost]
+    [RequirePermission("ExamenesLaboratorio.Crear")]
     public async Task<ActionResult<CreateExamenLaboratorioResponse>> Create([FromBody] CreateExamenLaboratorioRequest request)
     {
         var response = await _createHandler.HandleAsync(request);
@@ -41,6 +43,7 @@ public class ExamenesLaboratorioController : ControllerBase
     }
 
     [HttpPut("{id}")]
+    [RequirePermission("ExamenesLaboratorio.Editar")]
     public async Task<ActionResult<UpdateExamenLaboratorioResponse>> Update(int id, [FromBody] UpdateExamenLaboratorioRequest request)
     {
         var response = await _updateHandler.HandleAsync(id, request);
@@ -48,6 +51,7 @@ public class ExamenesLaboratorioController : ControllerBase
     }
 
     [HttpGet("{id}")]
+    [RequirePermission("ExamenesLaboratorio.Ver")]
     public async Task<ActionResult<GetExamenLaboratorioResponse>> GetById(int id)
     {
         var response = await _getHandler.HandleAsync(id);
@@ -55,6 +59,7 @@ public class ExamenesLaboratorioController : ControllerBase
     }
 
     [HttpGet("orden/{ordenLaboratorioId}")]
+    [RequirePermission("ExamenesLaboratorio.Ver")]
     public async Task<ActionResult<IEnumerable<ListExamenesLaboratorioByOrdenResponse>>> GetByOrden(int ordenLaboratorioId)
     {
         var response = await _listByOrdenHandler.HandleAsync(ordenLaboratorioId);
@@ -62,6 +67,7 @@ public class ExamenesLaboratorioController : ControllerBase
     }
 
     [HttpDelete("{id}")]
+    [RequirePermission("ExamenesLaboratorio.Eliminar")]
     public async Task<IActionResult> Delete(int id)
     {
         await _deleteHandler.HandleAsync(id);

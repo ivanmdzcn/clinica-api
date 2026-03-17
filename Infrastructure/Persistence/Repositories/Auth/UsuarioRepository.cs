@@ -163,7 +163,7 @@ public class UsuarioRepository : IUsuarioRepository
     {
         const string sql = @"
             UPDATE usuarios
-            SET ultimo_acceso = UTC_TIMESTAMP()
+            SET ultimo_acceso = NOW()
             WHERE id = @Id;
         ";
 

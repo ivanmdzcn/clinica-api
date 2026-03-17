@@ -1,21 +1,15 @@
 services:
-  api:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    container_name: clinica_cnt
-    ports:
-      - "${API_PORT:-8080}:8080"
-    environment:
-      - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT:-Production}
-      - ConnectionStrings__DefaultConnection=Server=${DB_HOST};Port=${DB_PORT};Database=${MYSQL_DATABASE};User=${MYSQL_USER};Password=${MYSQL_PASSWORD};
-      - Jwt__Key=${JWT_KEY}
-      - Jwt__Issuer=${JWT_ISSUER}
-      - Jwt__Audience=${JWT_AUDIENCE}
-    networks:
-      - net_clinica
+  clinica-api:
+    image: clinica-api:latest
+    container_name: api_clinica
     restart: unless-stopped
+    env_file:
+      - .env
+    ports:
+      - "9090:8080"
+    networks:
+      - clinica_network # Debe coincidir con la red de la BD
 
 networks:
-  net_clinica:
-    driver: bridge
+  clinica_network: # El nombre de la red que se crea manualmente
+    external: true

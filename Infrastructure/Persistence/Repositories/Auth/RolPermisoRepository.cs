@@ -49,7 +49,7 @@ public class RolPermisoRepository : IRolPermisoRepository
     {
         const string sql = @"
             INSERT IGNORE INTO rol_permisos (rol_id, permiso_id, fecha_asignacion)
-            VALUES (@RolId, @PermisoId, UTC_TIMESTAMP());
+            VALUES (@RolId, @PermisoId, NOW());
         ";
 
         using var connection = _context.CreateConnection();
@@ -60,7 +60,7 @@ public class RolPermisoRepository : IRolPermisoRepository
     {
         const string sql = @"
             INSERT IGNORE INTO rol_permisos (rol_id, permiso_id, fecha_asignacion)
-            VALUES (@RolId, @PermisoId, UTC_TIMESTAMP());
+            VALUES (@RolId, @PermisoId, NOW());
         ";
 
         using var connection = _context.CreateConnection();
